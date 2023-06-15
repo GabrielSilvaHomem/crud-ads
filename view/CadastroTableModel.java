@@ -38,11 +38,11 @@ public class CadastroTableModel extends AbstractTableModel {
     @Override
 	public Object getValueAt(int rowIndex, int columnIndex) {
 		String value = null;
-
+        
 		if (rowIndex >= 0 && rowIndex < cadastros.size()) {
 			Cadastro cadastro = cadastros.get(rowIndex);
 			// ALTERAR ESSE MÉTODO PARA O ESCOPO DO PROJETO
-		/* 	
+		
 			switch (columnIndex) {
 			case 0:
 				value = Integer.toString(cadastro.getId());
@@ -65,21 +65,22 @@ public class CadastroTableModel extends AbstractTableModel {
 			case 6:
 				value = cadastro.getTelefone();
 				break;
-			case 7:
-				value = cadastro.getCep();
-				break;
-			case 8:
-				value = cadastro.getObservacao();
-				break;
+            case 7:
+                value = cadastro.getCurso();
+                break;
+            case 8:
+                value = cadastro.getObservacao();
+                break;
 			case 9:
-				value = Boolean.toString(cadastro.getAtivo());
-			default:
+				value = cadastro.getAtivo();   
+                break;
+            default:
 				System.err.printf("[ERRO] Índice de coluna inválido: %d\n", columnIndex);
-			} */
+			} 
 		}
 
 		return value;
-	}
+	 }
 
 	public Cadastro getCadastro(int rowIndex) {
 		Cadastro cadastro = null;

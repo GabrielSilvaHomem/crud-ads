@@ -2,6 +2,7 @@ package model;
 
 import java.util.ArrayList;
 import java.util.List;
+
 public class CadastroStorage {
     private static int incremento = 0;
 	private static List<Cadastro> cadastros = new ArrayList<>();

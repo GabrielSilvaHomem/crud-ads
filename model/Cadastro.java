@@ -11,12 +11,12 @@ public class Cadastro {
     private String senha;
     private String curso;
     private String observacao;
-    private Boolean ativo;
+    private String ativo;
 
-    public Boolean getAtivo() {
+    public String getAtivo() {
         return ativo;
     }
-    public void setAtivo(Boolean ativo) {
+    public void setAtivo(String ativo) {
         this.ativo = ativo;
     }
     public String getCep() {
