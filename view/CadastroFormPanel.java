@@ -160,7 +160,7 @@ public class CadastroFormPanel extends JPanel {
 		String[] itens = {"Selecione seu curso", "Ciencia da computacao", "Sistemas de Informacao", "Educacao Fisica", "Filosofia", "Matematica"};
 		rotulo = new JLabel("Curso");
 		adicionarComponente(rotulo, 9, 0);
-		cursoMenu = new JComboBox<>(itens);
+		cursoMenu = new JComboBox<String>(itens);
 		adicionarComponente(cursoMenu, 9, 1);
 
 		rotulo = new JLabel("Observacao");
@@ -172,7 +172,7 @@ public class CadastroFormPanel extends JPanel {
 		String[] ativo = {"Ativo", "Inativo"};
 		rotulo = new JLabel("Ativo");
 		adicionarComponente(rotulo, 16, 0);
-		ativoCb = new JComboBox<>(ativo);
+		ativoCb = new JComboBox<String>(ativo);
 		adicionarComponente(ativoCb, 16, 1);
 
 		criarBotoes();
@@ -194,43 +194,116 @@ public class CadastroFormPanel extends JPanel {
 		salvarBtn.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				if (cadastro == null) {
+				if (cadastro == null || cadastro.getId() == 0) {
 					cadastro = new Cadastro();
-					verificarCampos(nomeTxt.getText(), "Nome");
+					if (verificarCampos(nomeTxt.getText(), "nome")) {
+						return;
+					}
+					
 					cadastro.setNome(nomeTxt.getText());
-					cadastro.setCep(cepTxt.getText());
-					cadastro.setIdade(Integer.parseInt(idadeTxt.getText()));
-					verificarCampos(emailTxt.getText(), "Email");
+					try {
+						cadastro.setIdade(Integer.parseInt(idadeTxt.getText()));
+					} catch (Exception a) {
+						JOptionPane.showMessageDialog(null, "Digite um número inteiro!");
+						return;
+					}	
+					if (idadeTxt.getText().isEmpty()) {
+						JOptionPane.showMessageDialog(null, "Digite um Número inteiro!");
+						return;
+					}
                     cadastro.setEmail(emailTxt.getText());
-					verificarCampos(enderecoTxt.getText(), "Endereço");
+					if (verificarCampos(emailTxt.getText(), "email")) {
+						return;
+					}
                     cadastro.setEndereco(enderecoTxt.getText());
+					if (verificarCampos(enderecoTxt.getText(), "endereço")) {
+						return;
+					}
+
+
+					cadastro.setCep(cepTxt.getText());
                     cadastro.setTelefone(telefoneTxt.getText());
-					verificarCampos(usuarioTxt.getText(), "Usuário");
+
+
                     cadastro.setUsuario(usuarioTxt.getText());
-					verificarCampos(new String(senhaTxt.getPassword()), "Senha");
+					if (verificarCampos(usuarioTxt.getText(), "Usuário")) {
+						return;
+					}
 					cadastro.setSenha(new String(senhaTxt.getPassword()));
+					if (verificarCampos(new String(senhaTxt.getPassword()), "Senha")) {
+						return;
+					}
                     cadastro.setCurso(cursoMenu.getSelectedItem().toString());
+					if (cursoMenu.getSelectedItem().toString() == "Selecione seu curso") {
+						JOptionPane.showMessageDialog(null, "Digite um curso válido!");
+						return;
+					}
+
                     cadastro.setObservacao(observacaoTxt.getText());
+
 					cadastro.setAtivo(ativoCb.getSelectedItem().toString());
 					CadastroStorage.inserir(cadastro);
+
 				} else {
 					cadastro.setId(Integer.parseInt(idTxt.getText()));
 					cadastro.setNome(nomeTxt.getText());
-					cadastro.setCep(cepTxt.getText());
-					cadastro.setIdade(Integer.parseInt(idadeTxt.getText()));
+					if (verificarCampos(nomeTxt.getText(), "nome")) {
+						return;
+					}
+					try {
+						cadastro.setIdade(Integer.parseInt(idadeTxt.getText()));
+					} catch (Exception a) {
+						JOptionPane.showMessageDialog(null, "Digite um número inteiro!");
+						return;
+					}	
+					if (idadeTxt.getText().isEmpty()) {
+						JOptionPane.showMessageDialog(null, "Digite um Número inteiro!");
+						return;
+					}
                     cadastro.setEmail(emailTxt.getText());
+					if (verificarCampos(emailTxt.getText(), "email")) {
+						return;
+					}
                     cadastro.setEndereco(enderecoTxt.getText());
-                    cadastro.setTelefone(telefoneTxt.getText());
-                    cadastro.setUsuario(usuarioTxt.getText());
-                    cadastro.setSenha(new String(senhaTxt.getPassword()));
-                    cadastro.setCurso(cursoMenu.getSelectedItem().toString());
-                    cadastro.setObservacao(observacaoTxt.getText());
-					cadastro.setAtivo(ativoCb.getSelectedItem().toString());
-					CadastroStorage.atualizar(cadastro);
-				}
+					if (verificarCampos(enderecoTxt.getText(), "endereço")) {
+						return;
+					}
 
-				JOptionPane.showMessageDialog(CadastroFormPanel.this, "Cadastro realizado com sucesso!", AppFrame.titulo,
-						JOptionPane.INFORMATION_MESSAGE);
+
+					cadastro.setCep(cepTxt.getText());
+                    cadastro.setTelefone(telefoneTxt.getText());
+
+
+                    cadastro.setUsuario(usuarioTxt.getText());
+					if (verificarCampos(usuarioTxt.getText(), "Usuário")) {
+						return;
+					}
+					cadastro.setSenha(new String(senhaTxt.getPassword()));
+					if (verificarCampos(new String(senhaTxt.getPassword()), "Senha")) {
+						return;
+					}
+                    cadastro.setCurso(cursoMenu.getSelectedItem().toString());
+					if (cursoMenu.getSelectedItem().toString() == "Selecione seu curso") {
+						JOptionPane.showMessageDialog(null, "Digite um curso válido!");
+						return;
+					}
+
+                    cadastro.setObservacao(observacaoTxt.getText());
+
+					cadastro.setAtivo(ativoCb.getSelectedItem().toString());
+					
+					CadastroStorage.atualizar(cadastro);
+
+					
+
+				}
+				if (cadastro == null || cadastro.getId() == 0) {
+					JOptionPane.showMessageDialog(CadastroFormPanel.this, "Cadastro realizado com sucesso!", AppFrame.titulo,
+				JOptionPane.INFORMATION_MESSAGE);
+				} else {
+					JOptionPane.showMessageDialog(CadastroFormPanel.this, "Cadastro atualizado com sucesso!", AppFrame.titulo,
+				JOptionPane.INFORMATION_MESSAGE);
+				}
 
 				frame.mostrarListaCadastros();
 			}
@@ -266,14 +339,15 @@ public class CadastroFormPanel extends JPanel {
 		add(componente);
 	}
 
-	private void verificarCampos (String campo,String nome){
+	private boolean verificarCampos (String campo,String nome){
 		CadastroFormPanel cadastroFormPanel = new CadastroFormPanel();
 		String mensagem = String.format("Digite corretamente o %s!",nome);
 		campo = campo.trim();
-		while (campo.length() < 3 || campo == "") {
+		if (campo.isEmpty()) {
 			JOptionPane.showMessageDialog(cadastroFormPanel,mensagem);
-			break;
+			return true;
 		}
+		return false;
 	}
 	
 }
