@@ -13,7 +13,7 @@ public class CadastroStorage {
 
 
 	public static void inserir(Cadastro cadastro) {
-		final String query = "INSERT INTO Usuario (nome, idade,email,endereco,cep,telefone,usuario,senha,curso,observacoes,ativo) VALUES (?,?,?,?,?,?,?,?,?,?)";
+		final String query = "INSERT INTO usuario (nome, idade,email,endereco,cep,telefone,usuario,senha,curso,observacao,ativo) VALUES (?,?,?,?,?,?,?,?,?,?,?)";
 
 		Connection conn = null;
 		PreparedStatement prepStmt = null;
@@ -56,7 +56,7 @@ public class CadastroStorage {
 	}
 	
 	public static void atualizar(Cadastro cadastro) {
-		final String query = "UPDATE usuario SET nome = ?, idade = ?,email = ?,cep = ?,telefone = ?,usuario = ?,senha = ?,curso = ?,observacao = ?,ativo = ?, WHERE id = ?";
+		final String query = "UPDATE usuario SET nome = ?, idade = ?,email = ?,endereco = ?,cep = ?,telefone = ?,usuario = ?,senha = ?,curso = ?,observacao = ?,ativo = ? WHERE idUsuario = ?";
 
 		Connection conn = null;
 		PreparedStatement prepStmt = null;
@@ -91,7 +91,7 @@ public class CadastroStorage {
 	} 
 
 	public static void remover(Cadastro cadastro) {
-		final String query = "DELETE FROM usuario WHERE id = ?";
+		final String query = "DELETE FROM usuario WHERE idUsuario = ?";
 
 		Connection conn = null;
 		PreparedStatement prepStmt = null;
@@ -117,7 +117,7 @@ public class CadastroStorage {
 	public static List<Cadastro> listar() {
 		List<Cadastro> cadastros = new ArrayList<>();
 
-		final String query = "SELECT * FROM usuario ORDER BY Id";
+		final String query = "SELECT * FROM usuario ORDER BY idUsuario ASC";
 
 		Connection conn = null;
 		Statement stmt = null;
@@ -130,13 +130,15 @@ public class CadastroStorage {
 
 			while (rs.next()) {
 				Cadastro cadastro = new Cadastro();
-				cadastro.setId(rs.getInt("id"));
+				cadastro.setId(rs.getInt("idUsuario"));
 				cadastro.setNome(rs.getString("nome"));
 				cadastro.setIdade(rs.getInt("idade"));
 				cadastro.setEmail(rs.getString("email"));
 				cadastro.setEndereco(rs.getString("endereco"));
 				cadastro.setCep(rs.getString("cep"));
 				cadastro.setTelefone(rs.getString("telefone"));
+				cadastro.setUsuario(rs.getString("usuario"));
+				cadastro.setSenha(rs.getString("senha"));
 				cadastro.setCurso(rs.getString("curso"));
 				cadastro.setObservacao(rs.getString("observacao"));
 				cadastro.setAtivo(rs.getString("ativo"));

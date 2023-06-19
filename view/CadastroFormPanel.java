@@ -8,6 +8,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
+import java.text.Format;
+
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JComponent;
@@ -47,6 +49,8 @@ public class CadastroFormPanel extends JPanel {
 	private JButton salvarBtn;
 	private JButton cancelarBtn;
 
+	public CadastroFormPanel() {
+	}
     public CadastroFormPanel(AppFrame appFrame) {
 		frame = appFrame;
 
@@ -69,6 +73,7 @@ public class CadastroFormPanel extends JPanel {
                     telefoneTxt.setText("");
                     usuarioTxt.setText("");
                     senhaTxt.setText("");
+					cursoMenu.setSelectedIndex(0);
                     observacaoTxt.setText("");
 				} else {
 					idTxt.setText(Integer.toString(cadastro.getId()));
@@ -80,7 +85,7 @@ public class CadastroFormPanel extends JPanel {
                     telefoneTxt.setText(cadastro.getTelefone());
                     usuarioTxt.setText(cadastro.getUsuario());
                     senhaTxt.setText(cadastro.getSenha());
-                    cursoMenu.setToolTipText(cadastro.getCurso());
+                    cursoMenu.setSelectedItem(cadastro.getCurso());
                     observacaoTxt.setText(cadastro.getObservacao());
           
 				}
@@ -191,14 +196,19 @@ public class CadastroFormPanel extends JPanel {
 			public void actionPerformed(ActionEvent e) {
 				if (cadastro == null) {
 					cadastro = new Cadastro();
+					verificarCampos(nomeTxt.getText(), "Nome");
 					cadastro.setNome(nomeTxt.getText());
 					cadastro.setCep(cepTxt.getText());
 					cadastro.setIdade(Integer.parseInt(idadeTxt.getText()));
+					verificarCampos(emailTxt.getText(), "Email");
                     cadastro.setEmail(emailTxt.getText());
+					verificarCampos(enderecoTxt.getText(), "Endereço");
                     cadastro.setEndereco(enderecoTxt.getText());
                     cadastro.setTelefone(telefoneTxt.getText());
+					verificarCampos(usuarioTxt.getText(), "Usuário");
                     cadastro.setUsuario(usuarioTxt.getText());
-                    cadastro.setSenha(senhaTxt.getPassword().toString());
+					verificarCampos(new String(senhaTxt.getPassword()), "Senha");
+					cadastro.setSenha(new String(senhaTxt.getPassword()));
                     cadastro.setCurso(cursoMenu.getSelectedItem().toString());
                     cadastro.setObservacao(observacaoTxt.getText());
 					cadastro.setAtivo(ativoCb.getSelectedItem().toString());
@@ -212,7 +222,7 @@ public class CadastroFormPanel extends JPanel {
                     cadastro.setEndereco(enderecoTxt.getText());
                     cadastro.setTelefone(telefoneTxt.getText());
                     cadastro.setUsuario(usuarioTxt.getText());
-                    cadastro.setSenha(senhaTxt.getPassword().toString());
+                    cadastro.setSenha(new String(senhaTxt.getPassword()));
                     cadastro.setCurso(cursoMenu.getSelectedItem().toString());
                     cadastro.setObservacao(observacaoTxt.getText());
 					cadastro.setAtivo(ativoCb.getSelectedItem().toString());
@@ -254,6 +264,16 @@ public class CadastroFormPanel extends JPanel {
 
 		layout.setConstraints(componente, constraints);
 		add(componente);
+	}
+
+	private void verificarCampos (String campo,String nome){
+		CadastroFormPanel cadastroFormPanel = new CadastroFormPanel();
+		String mensagem = String.format("Digite corretamente o %s!",nome);
+		campo = campo.trim();
+		while (campo.length() < 3 || campo == "") {
+			JOptionPane.showMessageDialog(cadastroFormPanel,mensagem);
+			break;
+		}
 	}
 	
 }
