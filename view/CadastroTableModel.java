@@ -51,7 +51,7 @@ public class CadastroTableModel extends AbstractTableModel {
 				value = cadastro.getNome();
 				break;
 			case 2:
-				value = cadastro.getIdade();
+				value = Integer.toString(cadastro.getIdade());
 				break;
 			case 3:
 				value = cadastro.getEmail();

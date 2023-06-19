@@ -73,7 +73,7 @@ public class CadastroFormPanel extends JPanel {
 				} else {
 					idTxt.setText(Integer.toString(cadastro.getId()));
 					nomeTxt.setText(cadastro.getNome());
-                    idadeTxt.setText(cadastro.getIdade());
+                    idadeTxt.setText(Integer.toString(cadastro.getIdade()));
                     emailTxt.setText(cadastro.getEmail());
                     enderecoTxt.setText(cadastro.getEndereco());
 					cepTxt.setText(cadastro.getCep());
@@ -193,7 +193,7 @@ public class CadastroFormPanel extends JPanel {
 					cadastro = new Cadastro();
 					cadastro.setNome(nomeTxt.getText());
 					cadastro.setCep(cepTxt.getText());
-					cadastro.setIdade(idadeTxt.getText());
+					cadastro.setIdade(Integer.parseInt(idadeTxt.getText()));
                     cadastro.setEmail(emailTxt.getText());
                     cadastro.setEndereco(enderecoTxt.getText());
                     cadastro.setTelefone(telefoneTxt.getText());
@@ -207,7 +207,7 @@ public class CadastroFormPanel extends JPanel {
 					cadastro.setId(Integer.parseInt(idTxt.getText()));
 					cadastro.setNome(nomeTxt.getText());
 					cadastro.setCep(cepTxt.getText());
-					cadastro.setIdade(idadeTxt.getText());
+					cadastro.setIdade(Integer.parseInt(idadeTxt.getText()));
                     cadastro.setEmail(emailTxt.getText());
                     cadastro.setEndereco(enderecoTxt.getText());
                     cadastro.setTelefone(telefoneTxt.getText());

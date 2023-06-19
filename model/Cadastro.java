@@ -2,7 +2,7 @@ package model;
 public class Cadastro {
     private int id;
     private String nome; 
-    private String idade;
+    private int idade;
     private String email;
     private String endereco;
     private String cep;
@@ -49,10 +49,10 @@ public class Cadastro {
     public void setId(int id) {
         this.id = id;
     }
-    public String getIdade() {
+    public int getIdade() {
         return idade;
     }
-    public void setIdade(String idade) {
+    public void setIdade(int idade) {
         this.idade = idade;
     }
     public String getNome() {
