@@ -8,9 +8,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CadastroStorage {
-    private static int incremento = 0;
-	private static List<Cadastro> cadastros = new ArrayList<>();
-
 
 	public static void inserir(Cadastro cadastro) {
 		final String query = "INSERT INTO usuario (nome, idade,email,endereco,cep,telefone,usuario,senha,curso,observacao,ativo) VALUES (?,?,?,?,?,?,?,?,?,?,?)";
